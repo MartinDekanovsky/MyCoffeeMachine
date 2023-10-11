@@ -75,7 +75,7 @@ public class MyCoffeeMachine {
     }
 
     public void steamMilk() {
-        if (coffeesMade >= 10) {
+        if (getCoffeesMade() >= 10) {
             System.out.println("Descaling of coffee machine needed!");
         } else if (getAmountOfWater() < 50) {
             System.out.println("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.");
@@ -86,11 +86,11 @@ public class MyCoffeeMachine {
     }
 
     public void makeOneSmallCoffee() {
-        if (coffeesMade >= 10) {
+        if (getCoffeesMade() >= 10) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned) {
+        } else if (isCleaned()) {
             System.out.println("Cleaning needed!");
-        } else if (amountOfDebris > 45) {
+        } else if (getAmountOfDebris() > 45) {
             System.out.println("Please empty the debris tank!");
         } else if (getAmountOfCoffee() < 5) {
             System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
@@ -107,11 +107,11 @@ public class MyCoffeeMachine {
     }
 
     public void makeTwoSmallCoffees() {
-        if (coffeesMade >= 10) {
+        if (getCoffeesMade() >= 10) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned) {
+        } else if (isCleaned()) {
             System.out.println("Cleaning needed!");
-        } else if (amountOfDebris > 40) {
+        } else if (getAmountOfDebris() > 40) {
             System.out.println("Please empty the debris tank!");
         } else if (getAmountOfCoffee() < 10) {
             System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
@@ -128,11 +128,11 @@ public class MyCoffeeMachine {
     }
 
     public void makeOneLargeCoffee() {
-        if (coffeesMade >= 10) {
+        if (getCoffeesMade() >= 10) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned) {
+        } else if (isCleaned()) {
             System.out.println("Cleaning needed!");
-        } else if (amountOfDebris > 45) {
+        } else if (getAmountOfDebris() > 45) {
             System.out.println("Please empty the debris tank!");
         } else if (getAmountOfCoffee() < 5) {
             System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
@@ -149,11 +149,11 @@ public class MyCoffeeMachine {
     }
 
     public void makeTwoLargeCoffees() {
-        if (coffeesMade >= 10) {
+        if (getCoffeesMade() >= 10) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned) {
+        } else if (isCleaned()) {
             System.out.println("Cleaning needed!");
-        } else if (amountOfDebris > 40) {
+        } else if (getAmountOfDebris() > 40) {
             System.out.println("Please empty the debris tank!");
         } else if (getAmountOfCoffee() < 10) {
             System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
@@ -196,7 +196,7 @@ public class MyCoffeeMachine {
     public void switchOff() throws FileNotFoundException {
         PrintWriter writer = new PrintWriter("src/main/resources/MyCoffeeMachine.txt");
         writer.println(getAmountOfWater() + "\n" + getAmountOfCoffee() + "\n" + getAmountOfDescaler() + "\n"
-        + amountOfDebris + "\n" + coffeesMade + "\n" + isCleaned);
+        + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaned());
         writer.close();
     }
 }
