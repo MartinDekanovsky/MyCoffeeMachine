@@ -6,12 +6,14 @@ public class MyCoffeeMachine {
     private int amountOfCoffee = 0;
     private int amountOfDescaler = 0;
     private int coffeesMade = 0;
+    private boolean isCleaned = true;
 
-    public MyCoffeeMachine(int amountOfWater, int amountOfCoffee, int amountOfDescaler, int coffeesMade) {
+    public MyCoffeeMachine(int amountOfWater, int amountOfCoffee, int amountOfDescaler, int coffeesMade, boolean isCleaned) {
         this.amountOfWater = amountOfWater;
         this.amountOfCoffee = amountOfCoffee;
         this.amountOfDescaler = amountOfDescaler;
         this.coffeesMade = coffeesMade;
+        this.isCleaned = isCleaned;
     }
 
     public int getAmountOfWater() {
@@ -66,6 +68,8 @@ public class MyCoffeeMachine {
     public void makeOneSmallCoffee() {
         if (coffeesMade >= 10) {
             System.out.println("Descaling of coffee machine needed!");
+        } else if (isCleaned) {
+            System.out.println("Cleaning needed!");
         } else {
             if (getAmountOfCoffee() < 5) {
                 System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
@@ -75,6 +79,7 @@ public class MyCoffeeMachine {
                 amountOfCoffee -= 5;
                 amountOfWater -= 50;
                 coffeesMade++;
+                isCleaned = false;
                 System.out.println("One small coffee done.");
             }
         }
@@ -83,6 +88,8 @@ public class MyCoffeeMachine {
     public void makeTwoSmallCoffees() {
         if (coffeesMade >= 10) {
             System.out.println("Descaling of coffee machine needed!");
+        } else if (isCleaned) {
+            System.out.println("Cleaning needed!");
         } else {
             if (getAmountOfCoffee() < 10) {
                 System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
@@ -92,6 +99,7 @@ public class MyCoffeeMachine {
                 amountOfCoffee -= 10;
                 amountOfWater -= 100;
                 coffeesMade += 2;
+                isCleaned = false;
                 System.out.println("Two small coffees done.");
             }
         }
@@ -100,6 +108,8 @@ public class MyCoffeeMachine {
     public void makeOneLargeCoffee() {
         if (coffeesMade >= 10) {
             System.out.println("Descaling of coffee machine needed!");
+        } else if (isCleaned) {
+            System.out.println("Cleaning needed!");
         } else {
             if (getAmountOfCoffee() < 5) {
                 System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
@@ -109,6 +119,7 @@ public class MyCoffeeMachine {
                 amountOfCoffee -= 5;
                 amountOfWater -= 100;
                 coffeesMade++;
+                isCleaned = false;
                 System.out.println("One large coffee done.");
             }
         }
@@ -117,6 +128,8 @@ public class MyCoffeeMachine {
     public void makeTwoLargeCoffees() {
         if (coffeesMade >= 10) {
             System.out.println("Descaling of coffee machine needed!");
+        } else if (isCleaned) {
+            System.out.println("Cleaning needed!");
         } else {
             if (getAmountOfCoffee() < 10) {
                 System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
@@ -126,6 +139,7 @@ public class MyCoffeeMachine {
                 amountOfCoffee -= 10;
                 amountOfWater -= 200;
                 coffeesMade += 2;
+                isCleaned = false;
                 System.out.println("Two large coffees done.");
             }
         }
@@ -136,6 +150,7 @@ public class MyCoffeeMachine {
             System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
             amountOfWater -= 50;
+            isCleaned = true;
             System.out.println("Coffee machine has been cleaned.");
         }
     }
