@@ -59,8 +59,44 @@ public class MyCoffeeMachine {
             System.out.println("Not enough water! 50mL are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
             amountOfCoffee -= 5;
-            amountOfWater -= 100;
+            amountOfWater -= 50;
             System.out.println("One small coffee done.");
+        }
+    }
+
+    public void makeTwoSmallCoffees() {
+        if (getAmountOfCoffee() < 10) {
+            System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
+        } else if (getAmountOfWater() < 100) {
+            System.out.println("Not enough water! 100mL are needed for two small coffees. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+        } else {
+            amountOfCoffee -= 10;
+            amountOfWater -= 100;
+            System.out.println("Two small coffees done.");
+        }
+    }
+
+    public void makeOneLargeCoffee() {
+        if (getAmountOfCoffee() < 5) {
+            System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
+        } else if (getAmountOfWater() < 100) {
+            System.out.println("Not enough water! 100mL are needed for one large coffee. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+        } else {
+            amountOfCoffee -= 5;
+            amountOfWater -= 100;
+            System.out.println("One large coffee done.");
+        }
+    }
+
+    public void makeTwoLargeCoffees() {
+        if (getAmountOfCoffee() < 10) {
+            System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
+        } else if (getAmountOfWater() < 200) {
+            System.out.println("Not enough water! 200mL are needed for two large coffees. Please add at least " + (200 - getAmountOfWater()) + "mL.");
+        } else {
+            amountOfCoffee -= 10;
+            amountOfWater -= 200;
+            System.out.println("Two large coffees done.");
         }
     }
 }
