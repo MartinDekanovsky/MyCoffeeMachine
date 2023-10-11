@@ -27,24 +27,40 @@ public class MyCoffeeMachine {
     }
 
     public void setAmountOfCoffee(int coffeeRefillAmount) {
-        amountOfCoffee += coffeeRefillAmount;
+        if (coffeeRefillAmount > 50 - getAmountOfCoffee()) {
+            System.out.println("Coffee tank capacity is 50g. Only " + (50 - getAmountOfCoffee()) + "g more can be added.");
+        } else {
+            amountOfCoffee += coffeeRefillAmount;
+        }
     }
 
     public void clean() {
-        if (getAmountOfWater() < 100) {
-            System.out.println("Not enough water! 100mL are needed for cleaning. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+        if (getAmountOfWater() < 50) {
+            System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
-            amountOfWater -= 100;
+            amountOfWater -= 50;
             System.out.println("Coffee machine has been cleaned");
         }
     }
 
     public void steamMilk() {
-        if (getAmountOfWater() < 100) {
-            System.out.println("Not enough water! 100mL are needed for steaming. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+        if (getAmountOfWater() < 50) {
+            System.out.println("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
-            amountOfWater -= 100;
+            amountOfWater -= 50;
             System.out.println("Steaming done.");
+        }
+    }
+
+    public void makeOneSmallCoffee() {
+        if (getAmountOfCoffee() < 5) {
+            System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
+        } else if (getAmountOfWater() < 50) {
+            System.out.println("Not enough water! 50mL are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+        } else {
+            amountOfCoffee -= 5;
+            amountOfWater -= 100;
+            System.out.println("One small coffee done.");
         }
     }
 }
