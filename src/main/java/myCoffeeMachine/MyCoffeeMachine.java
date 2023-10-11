@@ -4,10 +4,12 @@ public class MyCoffeeMachine {
 
     private int amountOfWater = 0;
     private int amountOfCoffee = 0;
+    private int amountOfDescaler = 0;
 
-    public MyCoffeeMachine(int amountOfWater, int amountOfCoffee) {
+    public MyCoffeeMachine(int amountOfWater, int amountOfCoffee, int amountOfDescaler) {
         this.amountOfWater = amountOfWater;
         this.amountOfCoffee = amountOfCoffee;
+        this.amountOfDescaler = amountOfDescaler;
     }
 
     public int getAmountOfWater() {
@@ -16,6 +18,10 @@ public class MyCoffeeMachine {
 
     public int getAmountOfCoffee() {
         return amountOfCoffee;
+    }
+
+    public int getAmountOfDescaler() {
+        return amountOfDescaler;
     }
 
     public void setAmountOfWater(int waterRefillAmount) {
@@ -34,12 +40,11 @@ public class MyCoffeeMachine {
         }
     }
 
-    public void clean() {
-        if (getAmountOfWater() < 50) {
-            System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+    public void setAmountOfDescaler(int descalerRefillAmount) {
+        if (descalerRefillAmount > 100 - getAmountOfDescaler()) {
+            System.out.println("Descaler tank capacity is 100mL. Only " + (100 - getAmountOfDescaler()) + "mL more can be added.");
         } else {
-            amountOfWater -= 50;
-            System.out.println("Coffee machine has been cleaned");
+            amountOfDescaler += descalerRefillAmount;
         }
     }
 
@@ -97,6 +102,24 @@ public class MyCoffeeMachine {
             amountOfCoffee -= 10;
             amountOfWater -= 200;
             System.out.println("Two large coffees done.");
+        }
+    }
+
+    public void clean() {
+        if (getAmountOfWater() < 50) {
+            System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+        } else {
+            amountOfWater -= 50;
+            System.out.println("Coffee machine has been cleaned.");
+        }
+    }
+
+    public void descale() {
+        if (getAmountOfDescaler() < 100) {
+            System.out.println("Not enough descaler! 100mL are needed for descaling. Please add at least " + (100 - getAmountOfDescaler()) + "mL.");
+        } else {
+            amountOfDescaler -= 100;
+            System.out.println("Coffee machine has been descaled.");
         }
     }
 }
