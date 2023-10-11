@@ -264,7 +264,9 @@ public class MyCoffeeMachine {
      * Cleaning has to be done after each coffee making process.
      */
     public void clean() {
-        if (getAmountOfWater() < 50) {
+        if (!isCleaningNeeded()) {
+            System.out.println("Cleaning not needed!");
+        } else if (getAmountOfWater() < 50) {
             System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
             amountOfWater -= 50;
@@ -278,7 +280,9 @@ public class MyCoffeeMachine {
      * Descaling has to be done after 10 or more coffees are prepared.
      */
     public void descale() {
-        if (getAmountOfDescaler() < 200) {
+        if (!isDescalingNeeded()) {
+            System.out.println("Descaling not needed!");
+        } else if (getAmountOfDescaler() < 200) {
             System.out.println("Not enough descaler! 10mL are needed for cleaning. Please add at least " + (200 - getAmountOfDescaler()) + "mL.");
         } else {
             amountOfDescaler -= 100;
@@ -303,7 +307,7 @@ public class MyCoffeeMachine {
     public void switchOff() throws FileNotFoundException {
         PrintWriter writer = new PrintWriter("src/main/resources/MyCoffeeMachine.txt");
         writer.println(getAmountOfWater() + "\n" + getAmountOfCoffee() + "\n" + getAmountOfDescaler() + "\n"
-        + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaningNeeded());
+                + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaningNeeded());
         writer.close();
     }
 }
