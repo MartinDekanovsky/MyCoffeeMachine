@@ -18,7 +18,7 @@ public class MyCoffeeMachine {
     private int amountOfDescaler;
     private int amountOfDebris;
     private int coffeesMade;
-    private boolean isCleaned;
+    private boolean isCleaningNeeded;
 
     /**
      * Constructor simulates switching-on an existing coffee machine by reading its state from txt file.
@@ -32,7 +32,7 @@ public class MyCoffeeMachine {
         this.amountOfDescaler = scanner.nextInt();
         this.amountOfDebris = scanner.nextInt();
         this.coffeesMade = scanner.nextInt();
-        this.isCleaned = scanner.nextBoolean();
+        this.isCleaningNeeded = scanner.nextBoolean();
         scanner.close();
     }
 
@@ -82,16 +82,36 @@ public class MyCoffeeMachine {
     }
 
     /**
-     * Method finds out whether coffee machine is cleaned or not.
+     * Method finds out whether coffee machine needs to be cleaned or not.
      *
      * @return true or false.
      */
-    public boolean isCleaned() {
-        return isCleaned;
+    public boolean isCleaningNeeded() {
+        return isCleaningNeeded;
     }
 
     /**
-     * Method sets amount of water present in coffee machine water tank.
+     * Method finds out whether coffee machine needs to be descaled or not.
+     *
+     * @return true or false.
+     */
+    public boolean isDescalingNeeded() {
+        return getCoffeesMade() >= 10;
+    }
+
+    /**
+     * Method returns the current state of coffee machine.
+     *
+     * @return current state.
+     */
+    public String getState() {
+        return "Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
+                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + ", Cleaning needed: " + isCleaningNeeded()
+                + ", Descaling needed: " + isDescalingNeeded();
+    }
+
+    /**
+     * Method sets amount of water present in coffee machine water tank. Maximum capacity is 2000mL.
      *
      * @param waterRefillAmount amount of water to be added.
      */
@@ -104,7 +124,7 @@ public class MyCoffeeMachine {
     }
 
     /**
-     * Method sets amount of coffee present in coffee machine coffee tank.
+     * Method sets amount of coffee present in coffee machine coffee tank. Maximum capacity is 50g.
      *
      * @param coffeeRefillAmount amount of coffee to be added.
      */
@@ -117,7 +137,7 @@ public class MyCoffeeMachine {
     }
 
     /**
-     * Method sets amount of descaler present in coffee machine descaler tank.
+     * Method sets amount of descaler present in coffee machine descaler tank. Maximum capacity is 200mL.
      *
      * @param descalerRefillAmount amount of descaler to be added.
      */
@@ -133,7 +153,7 @@ public class MyCoffeeMachine {
      * Method for steaming of milk.
      */
     public void steamMilk() {
-        if (getCoffeesMade() >= 10) {
+        if (isDescalingNeeded()) {
             System.out.println("Descaling of coffee machine needed!");
         } else if (getAmountOfWater() < 50) {
             System.out.println("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.");
@@ -147,9 +167,9 @@ public class MyCoffeeMachine {
      * Method for making one small coffee.
      */
     public void makeOneSmallCoffee() {
-        if (getCoffeesMade() >= 10) {
+        if (isDescalingNeeded()) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned()) {
+        } else if (isCleaningNeeded()) {
             System.out.println("Cleaning needed!");
         } else if (getAmountOfDebris() > 45) {
             System.out.println("Please empty the debris tank!");
@@ -162,7 +182,7 @@ public class MyCoffeeMachine {
             amountOfWater -= 50;
             amountOfDebris += 5;
             coffeesMade++;
-            isCleaned = false;
+            isCleaningNeeded = true;
             System.out.println("One small coffee done.");
         }
     }
@@ -171,9 +191,9 @@ public class MyCoffeeMachine {
      * Method for making two small coffees.
      */
     public void makeTwoSmallCoffees() {
-        if (getCoffeesMade() >= 10) {
+        if (isDescalingNeeded()) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned()) {
+        } else if (isCleaningNeeded()) {
             System.out.println("Cleaning needed!");
         } else if (getAmountOfDebris() > 40) {
             System.out.println("Please empty the debris tank!");
@@ -186,7 +206,7 @@ public class MyCoffeeMachine {
             amountOfWater -= 100;
             amountOfDebris += 10;
             coffeesMade += 2;
-            isCleaned = false;
+            isCleaningNeeded = true;
             System.out.println("Two small coffees done.");
         }
     }
@@ -195,9 +215,9 @@ public class MyCoffeeMachine {
      * Method for making one large coffee.
      */
     public void makeOneLargeCoffee() {
-        if (getCoffeesMade() >= 10) {
+        if (isDescalingNeeded()) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned()) {
+        } else if (isCleaningNeeded()) {
             System.out.println("Cleaning needed!");
         } else if (getAmountOfDebris() > 45) {
             System.out.println("Please empty the debris tank!");
@@ -210,7 +230,7 @@ public class MyCoffeeMachine {
             amountOfWater -= 100;
             amountOfDebris += 5;
             coffeesMade++;
-            isCleaned = false;
+            isCleaningNeeded = true;
             System.out.println("One large coffee done.");
         }
     }
@@ -219,9 +239,9 @@ public class MyCoffeeMachine {
      * Method for making two large coffees.
      */
     public void makeTwoLargeCoffees() {
-        if (getCoffeesMade() >= 10) {
+        if (isDescalingNeeded()) {
             System.out.println("Descaling of coffee machine needed!");
-        } else if (!isCleaned()) {
+        } else if (isCleaningNeeded()) {
             System.out.println("Cleaning needed!");
         } else if (getAmountOfDebris() > 40) {
             System.out.println("Please empty the debris tank!");
@@ -234,26 +254,28 @@ public class MyCoffeeMachine {
             amountOfWater -= 200;
             amountOfDebris += 10;
             coffeesMade += 2;
-            isCleaned = false;
+            isCleaningNeeded = true;
             System.out.println("Two large coffees done.");
         }
     }
 
     /**
      * Method for cleaning the coffee machine pipes.
+     * Cleaning has to be done after each coffee making process.
      */
     public void clean() {
         if (getAmountOfWater() < 50) {
             System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
         } else {
             amountOfWater -= 50;
-            isCleaned = true;
+            isCleaningNeeded = false;
             System.out.println("Coffee machine has been cleaned.");
         }
     }
 
     /**
      * Method for descaling the coffee machine.
+     * Descaling has to be done after 10 or more coffees are prepared.
      */
     public void descale() {
         if (getAmountOfDescaler() < 200) {
@@ -281,7 +303,7 @@ public class MyCoffeeMachine {
     public void switchOff() throws FileNotFoundException {
         PrintWriter writer = new PrintWriter("src/main/resources/MyCoffeeMachine.txt");
         writer.println(getAmountOfWater() + "\n" + getAmountOfCoffee() + "\n" + getAmountOfDescaler() + "\n"
-        + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaned());
+        + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaningNeeded());
         writer.close();
     }
 }
