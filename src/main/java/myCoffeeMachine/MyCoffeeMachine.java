@@ -1,5 +1,8 @@
 package myCoffeeMachine;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,7 +14,7 @@ import java.util.Scanner;
  *
  * @author Martin Dekanovský
  */
-public class MyCoffeeMachine {
+public class MyCoffeeMachine extends JFrame {
 
     private int amountOfWater;
     private int amountOfCoffee;
@@ -19,9 +22,11 @@ public class MyCoffeeMachine {
     private int amountOfDebris;
     private int coffeesMade;
     private boolean isCleaningNeeded;
+    private JTextArea textArea;
 
     /**
      * Constructor simulates switching-on an existing coffee machine by reading its state from txt file.
+     * GUI of coffee machine is created, with display and buttons that represent coffee machine functions.
      *
      * @throws IOException
      */
@@ -34,6 +39,123 @@ public class MyCoffeeMachine {
         this.coffeesMade = scanner.nextInt();
         this.isCleaningNeeded = scanner.nextBoolean();
         scanner.close();
+
+        setTitle("My coffee machine :)");
+        setLayout(new BorderLayout());
+        setSize(650, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // window will be displayed in the middle of screen
+        setVisible(true);
+
+        textArea = new JTextArea();
+        textArea.setLayout(new BorderLayout());
+        textArea.setEditable(false); // it won't be possible to write into text area
+        textArea.setBackground(Color.LIGHT_GRAY);
+        textArea.setForeground(Color.BLACK);
+
+        JScrollPane scrollPane = new JScrollPane(textArea); // scroll pane for text area
+        add(scrollPane, BorderLayout.CENTER); // scroll pane (with text area) added to JFrame
+
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS)); // multiple panels can be added on top of each other
+        add(container, BorderLayout.SOUTH); // container added to JFrame
+
+        JPanel jPanel1 = new JPanel();
+        jPanel1.setLayout(new FlowLayout()); // buttons will be centered
+
+        JButton addWaterButton = new JButton("Add water:");
+        JTextField addWaterButtonTextField = new JTextField(4);
+        ActionListener addWaterButtonListener = event -> setAmountOfWater(addWaterButtonTextField);
+        addWaterButton.addActionListener(addWaterButtonListener);
+
+        JButton addCoffeeButton = new JButton("Add coffee:");
+        JTextField addCoffeeButtonTextField = new JTextField(4);
+        ActionListener addCoffeeButtonListener = event -> setAmountOfCoffee(addCoffeeButtonTextField);
+        addCoffeeButton.addActionListener(addCoffeeButtonListener);
+
+        JButton addDescalerButton = new JButton("Add descaler:");
+        JTextField addDescalerButtonTextField = new JTextField(4);
+        ActionListener addDescalerButtonListener = event -> setAmountOfDescaler(addDescalerButtonTextField);
+        addDescalerButton.addActionListener(addDescalerButtonListener);
+
+        jPanel1.add(addWaterButton);
+        jPanel1.add(addWaterButtonTextField);
+        jPanel1.add(addCoffeeButton);
+        jPanel1.add(addCoffeeButtonTextField);
+        jPanel1.add(addDescalerButton);
+        jPanel1.add(addDescalerButtonTextField);
+        container.add(jPanel1); // panel added to container
+
+        JPanel jPanel2 = new JPanel();
+        jPanel2.setLayout(new FlowLayout());
+
+        JButton steamMilkButton = new JButton("Steam milk");
+        ActionListener steamMilkButtonListener = event -> steamMilk();
+        steamMilkButton.addActionListener(steamMilkButtonListener);
+
+        JButton makeOneSmallCoffeeButton = new JButton("1 small coffee");
+        ActionListener makeOneSmallCoffeeButtonListener = event -> makeOneSmallCoffee();
+        makeOneSmallCoffeeButton.addActionListener(makeOneSmallCoffeeButtonListener);
+
+        JButton makeTwoSmallCoffeesButton = new JButton("2 small coffees");
+        ActionListener makeTwoSmallCoffeesButtonListener = event -> makeTwoSmallCoffees();
+        makeTwoSmallCoffeesButton.addActionListener(makeTwoSmallCoffeesButtonListener);
+
+        JButton makeOneLargeCoffeeButton = new JButton("1 large coffee");
+        ActionListener makeOneLargeCoffeeButtonListener = event -> makeOneLargeCoffee();
+        makeOneLargeCoffeeButton.addActionListener(makeOneLargeCoffeeButtonListener);
+
+        JButton makeTwoLargeCoffeesButton = new JButton("2 large coffees");
+        ActionListener makeTwoLargeCoffeesButtonListener = event -> makeTwoLargeCoffees();
+        makeTwoLargeCoffeesButton.addActionListener(makeTwoLargeCoffeesButtonListener);
+
+        jPanel2.add(steamMilkButton);
+        jPanel2.add(makeOneSmallCoffeeButton);
+        jPanel2.add(makeTwoSmallCoffeesButton);
+        jPanel2.add(makeOneLargeCoffeeButton);
+        jPanel2.add(makeTwoLargeCoffeesButton);
+        container.add(jPanel2);
+
+        JPanel jPanel3 = new JPanel();
+        jPanel3.setLayout(new FlowLayout());
+
+        JButton cleanButton = new JButton("Clean");
+        ActionListener cleanButtonListener = event -> clean();
+        cleanButton.addActionListener(cleanButtonListener);
+
+        JButton descaleButton = new JButton("Descale");
+        ActionListener descaleButtonListener = event -> descale();
+        descaleButton.addActionListener(descaleButtonListener);
+
+        JButton removeDebrisButton = new JButton("Remove debris");
+        ActionListener removeDebrisButtonListener = event -> removeDebris();
+        removeDebrisButton.addActionListener(removeDebrisButtonListener);
+
+        jPanel3.add(cleanButton);
+        jPanel3.add(descaleButton);
+        jPanel3.add(removeDebrisButton);
+        container.add(jPanel3);
+
+        JPanel jPanel4 = new JPanel();
+        jPanel4.setLayout(new FlowLayout());
+
+        JButton showCoffeeMachineStateButton = new JButton("Show coffee machine state");
+        ActionListener showCoffeeMachineStateButtonListener = event -> showCoffeeMachineState();
+        showCoffeeMachineStateButton.addActionListener(showCoffeeMachineStateButtonListener);
+
+        JButton switchOffButton = new JButton("Switch Off");
+        ActionListener switchOffButtonListener = event -> {
+            try {
+                switchOff();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        };
+        switchOffButton.addActionListener(switchOffButtonListener);
+
+        jPanel4.add(showCoffeeMachineStateButton);
+        jPanel4.add(switchOffButton);
+        container.add(jPanel4);
     }
 
     /**
@@ -100,14 +222,12 @@ public class MyCoffeeMachine {
     }
 
     /**
-     * Method returns the current state of coffee machine.
-     *
-     * @return current state.
+     * Method shows the current state of coffee machine.
      */
-    public String getState() {
-        return "Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
+    public void showCoffeeMachineState() {
+        textArea.append("Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
                 + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + ", Cleaning needed: " + isCleaningNeeded()
-                + ", Descaling needed: " + isDescalingNeeded();
+                + ", Descaling needed: " + isDescalingNeeded() + "\n");
     }
 
     /**
@@ -115,11 +235,13 @@ public class MyCoffeeMachine {
      *
      * @param waterRefillAmount amount of water to be added.
      */
-    public void setAmountOfWater(int waterRefillAmount) {
-        if (waterRefillAmount > 2000 - getAmountOfWater()) {
-            System.out.println("Water tank capacity is 2000mL. Only " + (2000 - getAmountOfWater()) + "mL more can be added.");
+    public void setAmountOfWater(JTextField waterRefillAmount) {
+        int amount = Integer.parseInt(waterRefillAmount.getText());
+        if (amount > 2000 - getAmountOfWater()) {
+            textArea.append("Water tank capacity is 2000mL. Only " + (2000 - getAmountOfWater()) + "mL more can be added.\n");
         } else {
-            amountOfWater += waterRefillAmount;
+            amountOfWater += amount;
+            textArea.append(amount + "mL of water added.\n");
         }
     }
 
@@ -128,11 +250,13 @@ public class MyCoffeeMachine {
      *
      * @param coffeeRefillAmount amount of coffee to be added.
      */
-    public void setAmountOfCoffee(int coffeeRefillAmount) {
-        if (coffeeRefillAmount > 50 - getAmountOfCoffee()) {
-            System.out.println("Coffee tank capacity is 50g. Only " + (50 - getAmountOfCoffee()) + "g more can be added.");
+    public void setAmountOfCoffee(JTextField coffeeRefillAmount) {
+        int amount = Integer.parseInt(coffeeRefillAmount.getText());
+        if (amount > 50 - getAmountOfCoffee()) {
+            textArea.append("Coffee tank capacity is 50g. Only " + (50 - getAmountOfCoffee()) + "g more can be added.\n");
         } else {
-            amountOfCoffee += coffeeRefillAmount;
+            amountOfCoffee += amount;
+            textArea.append(amount + "g of coffee added.\n");
         }
     }
 
@@ -141,11 +265,13 @@ public class MyCoffeeMachine {
      *
      * @param descalerRefillAmount amount of descaler to be added.
      */
-    public void setAmountOfDescaler(int descalerRefillAmount) {
-        if (descalerRefillAmount > 200 - getAmountOfDescaler()) {
-            System.out.println("Descaler tank capacity is 200mL. Only " + (200 - getAmountOfDescaler()) + "mL more can be added.");
+    public void setAmountOfDescaler(JTextField descalerRefillAmount) {
+        int amount = Integer.parseInt(descalerRefillAmount.getText());
+        if (amount > 200 - getAmountOfDescaler()) {
+            textArea.append("Descaler tank capacity is 200mL. Only " + (200 - getAmountOfDescaler()) + "mL more can be added.\n");
         } else {
-            amountOfDescaler += descalerRefillAmount;
+            amountOfDescaler += amount;
+            textArea.append(amount + "mL of descaler added.\n");
         }
     }
 
@@ -154,12 +280,12 @@ public class MyCoffeeMachine {
      */
     public void steamMilk() {
         if (isDescalingNeeded()) {
-            System.out.println("Descaling of coffee machine needed!");
+            textArea.append("Descaling of coffee machine needed!\n");
         } else if (getAmountOfWater() < 50) {
-            System.out.println("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfWater -= 50;
-            System.out.println("Steaming done.");
+            textArea.append("Steaming done.\n");
         }
     }
 
@@ -168,22 +294,22 @@ public class MyCoffeeMachine {
      */
     public void makeOneSmallCoffee() {
         if (isDescalingNeeded()) {
-            System.out.println("Descaling of coffee machine needed!");
+            textArea.append("Descaling of coffee machine needed!\n");
         } else if (isCleaningNeeded()) {
-            System.out.println("Cleaning needed!");
+            textArea.append("Cleaning needed!\n");
         } else if (getAmountOfDebris() > 45) {
-            System.out.println("Please empty the debris tank!");
+            textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 5) {
-            System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
+            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.\n");
         } else if (getAmountOfWater() < 50) {
-            System.out.println("Not enough water! 50mL are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 50mL are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfCoffee -= 5;
             amountOfWater -= 50;
             amountOfDebris += 5;
             coffeesMade++;
             isCleaningNeeded = true;
-            System.out.println("One small coffee done.");
+            textArea.append("One small coffee done.\n");
         }
     }
 
@@ -192,22 +318,22 @@ public class MyCoffeeMachine {
      */
     public void makeTwoSmallCoffees() {
         if (isDescalingNeeded()) {
-            System.out.println("Descaling of coffee machine needed!");
+            textArea.append("Descaling of coffee machine needed!\n");
         } else if (isCleaningNeeded()) {
-            System.out.println("Cleaning needed!");
+            textArea.append("Cleaning needed!\n");
         } else if (getAmountOfDebris() > 40) {
-            System.out.println("Please empty the debris tank!");
+            textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 10) {
-            System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
+            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.\n");
         } else if (getAmountOfWater() < 100) {
-            System.out.println("Not enough water! 100mL are needed for two small coffees. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 100mL are needed for two small coffees. Please add at least " + (100 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfCoffee -= 10;
             amountOfWater -= 100;
             amountOfDebris += 10;
             coffeesMade += 2;
             isCleaningNeeded = true;
-            System.out.println("Two small coffees done.");
+            textArea.append("Two small coffees done.\n");
         }
     }
 
@@ -216,22 +342,22 @@ public class MyCoffeeMachine {
      */
     public void makeOneLargeCoffee() {
         if (isDescalingNeeded()) {
-            System.out.println("Descaling of coffee machine needed!");
+            textArea.append("Descaling of coffee machine needed!\n");
         } else if (isCleaningNeeded()) {
-            System.out.println("Cleaning needed!");
+            textArea.append("Cleaning needed!\n");
         } else if (getAmountOfDebris() > 45) {
-            System.out.println("Please empty the debris tank!");
+            textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 5) {
-            System.out.println("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.");
+            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.\n");
         } else if (getAmountOfWater() < 100) {
-            System.out.println("Not enough water! 100mL are needed for one large coffee. Please add at least " + (100 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 100mL are needed for one large coffee. Please add at least " + (100 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfCoffee -= 5;
             amountOfWater -= 100;
             amountOfDebris += 5;
             coffeesMade++;
             isCleaningNeeded = true;
-            System.out.println("One large coffee done.");
+            textArea.append("One large coffee done.\n");
         }
     }
 
@@ -240,22 +366,22 @@ public class MyCoffeeMachine {
      */
     public void makeTwoLargeCoffees() {
         if (isDescalingNeeded()) {
-            System.out.println("Descaling of coffee machine needed!");
+            textArea.append("Descaling of coffee machine needed!\n");
         } else if (isCleaningNeeded()) {
-            System.out.println("Cleaning needed!");
+            textArea.append("Cleaning needed!\n");
         } else if (getAmountOfDebris() > 40) {
-            System.out.println("Please empty the debris tank!");
+            textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 10) {
-            System.out.println("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.");
+            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.\n");
         } else if (getAmountOfWater() < 200) {
-            System.out.println("Not enough water! 200mL are needed for two large coffees. Please add at least " + (200 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 200mL are needed for two large coffees. Please add at least " + (200 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfCoffee -= 10;
             amountOfWater -= 200;
             amountOfDebris += 10;
             coffeesMade += 2;
             isCleaningNeeded = true;
-            System.out.println("Two large coffees done.");
+            textArea.append("Two large coffees done.\n");
         }
     }
 
@@ -265,13 +391,13 @@ public class MyCoffeeMachine {
      */
     public void clean() {
         if (!isCleaningNeeded()) {
-            System.out.println("Cleaning not needed!");
+            textArea.append("Cleaning not needed!\n");
         } else if (getAmountOfWater() < 50) {
-            System.out.println("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.");
+            textArea.append("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
         } else {
             amountOfWater -= 50;
             isCleaningNeeded = false;
-            System.out.println("Coffee machine has been cleaned.");
+            textArea.append("Coffee machine has been cleaned.\n");
         }
     }
 
@@ -281,13 +407,13 @@ public class MyCoffeeMachine {
      */
     public void descale() {
         if (!isDescalingNeeded()) {
-            System.out.println("Descaling not needed!");
+            textArea.append("Descaling not needed!\n");
         } else if (getAmountOfDescaler() < 200) {
-            System.out.println("Not enough descaler! 10mL are needed for cleaning. Please add at least " + (200 - getAmountOfDescaler()) + "mL.");
+            textArea.append("Not enough descaler! 10mL are needed for cleaning. Please add at least " + (200 - getAmountOfDescaler()) + "mL.\n");
         } else {
             amountOfDescaler -= 100;
             coffeesMade = 0;
-            System.out.println("Coffee machine has been descaled.");
+            textArea.append("Coffee machine has been descaled.\n");
         }
     }
 
@@ -296,6 +422,7 @@ public class MyCoffeeMachine {
      */
     public void removeDebris() {
         amountOfDebris = 0;
+        textArea.append("Debris has been removed.\n");
     }
 
     /**
