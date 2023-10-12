@@ -199,7 +199,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method returns current amount of debris present in coffee machine debris tank. Maximum capacity is 50g.
+     * Method returns current amount of debris present in coffee machine debris tank. Maximum capacity is 50 g.
      *
      * @return amount of debris.
      */
@@ -235,61 +235,61 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method sets amount of water present in coffee machine water tank. Maximum capacity is 2000mL.
+     * Method sets amount of water present in coffee machine water tank. Maximum capacity is 2000 ml.
      *
      * @param waterRefillAmount amount of water to be added.
      */
     public void setAmountOfWater(JTextField waterRefillAmount) {
         int amount = Integer.parseInt(waterRefillAmount.getText());
         if (amount > 2000 - getAmountOfWater()) {
-            textArea.append("Water tank capacity is 2000mL. Only " + (2000 - getAmountOfWater()) + "mL more can be added.\n");
+            textArea.append("Water tank capacity is 2000 ml. Only " + (2000 - getAmountOfWater()) + " ml more can be added.\n");
         } else {
             amountOfWater += amount;
-            textArea.append(amount + "mL of water added.\n");
+            textArea.append(amount + " ml of water added.\n");
             addWaterButtonTextField.setText(""); // resets the text field
         }
     }
 
     /**
-     * Method sets amount of coffee present in coffee machine coffee tank. Maximum capacity is 50g.
+     * Method sets amount of coffee present in coffee machine coffee tank. Maximum capacity is 50 g.
      *
      * @param coffeeRefillAmount amount of coffee to be added.
      */
     public void setAmountOfCoffee(JTextField coffeeRefillAmount) {
         int amount = Integer.parseInt(coffeeRefillAmount.getText());
         if (amount > 50 - getAmountOfCoffee()) {
-            textArea.append("Coffee tank capacity is 50g. Only " + (50 - getAmountOfCoffee()) + "g more can be added.\n");
+            textArea.append("Coffee tank capacity is 50 g. Only " + (50 - getAmountOfCoffee()) + " g more can be added.\n");
         } else {
             amountOfCoffee += amount;
-            textArea.append(amount + "g of coffee added.\n");
+            textArea.append(amount + " g of coffee added.\n");
             addCoffeeButtonTextField.setText("");
         }
     }
 
     /**
-     * Method sets amount of descaler present in coffee machine descaler tank. Maximum capacity is 200mL.
+     * Method sets amount of descaler present in coffee machine descaler tank. Maximum capacity is 200 ml.
      *
      * @param descalerRefillAmount amount of descaler to be added.
      */
     public void setAmountOfDescaler(JTextField descalerRefillAmount) {
         int amount = Integer.parseInt(descalerRefillAmount.getText());
         if (amount > 200 - getAmountOfDescaler()) {
-            textArea.append("Descaler tank capacity is 200mL. Only " + (200 - getAmountOfDescaler()) + "mL more can be added.\n");
+            textArea.append("Descaler tank capacity is 200 ml. Only " + (200 - getAmountOfDescaler()) + " ml more can be added.\n");
         } else {
             amountOfDescaler += amount;
-            textArea.append(amount + "mL of descaler added.\n");
+            textArea.append(amount + " ml of descaler added.\n");
             addDescalerButtonTextField.setText("");
         }
     }
 
     /**
-     * Method for steaming of milk.
+     * Method for steaming of milk. 50 ml of water is needed for steaming.
      */
     public void steamMilk() {
         if (isDescalingNeeded()) {
             textArea.append("Descaling of coffee machine needed!\n");
         } else if (getAmountOfWater() < 50) {
-            textArea.append("Not enough water! 50mL are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 50 ml are needed for steaming. Please add at least " + (50 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfWater -= 50;
             textArea.append("Steaming done.\n");
@@ -297,7 +297,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for making one small coffee.
+     * Method for making one small coffee. 5 g of coffee and 50 ml of water is needed.
      */
     public void makeOneSmallCoffee() {
         if (isDescalingNeeded()) {
@@ -307,9 +307,9 @@ public class MyCoffeeMachine extends JFrame {
         } else if (getAmountOfDebris() > 45) {
             textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 5) {
-            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.\n");
+            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + " g.\n");
         } else if (getAmountOfWater() < 50) {
-            textArea.append("Not enough water! 50mL are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 50 ml are needed for one small coffee. Please add at least " + (50 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfCoffee -= 5;
             amountOfWater -= 50;
@@ -321,7 +321,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for making two small coffees.
+     * Method for making two small coffees. 10 g of coffee and 100 ml of water is needed.
      */
     public void makeTwoSmallCoffees() {
         if (isDescalingNeeded()) {
@@ -331,9 +331,9 @@ public class MyCoffeeMachine extends JFrame {
         } else if (getAmountOfDebris() > 40) {
             textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 10) {
-            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.\n");
+            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + " g.\n");
         } else if (getAmountOfWater() < 100) {
-            textArea.append("Not enough water! 100mL are needed for two small coffees. Please add at least " + (100 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 100 ml are needed for two small coffees. Please add at least " + (100 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfCoffee -= 10;
             amountOfWater -= 100;
@@ -345,7 +345,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for making one large coffee.
+     * Method for making one large coffee. 5 g of coffee and 100 ml of water is needed.
      */
     public void makeOneLargeCoffee() {
         if (isDescalingNeeded()) {
@@ -355,9 +355,9 @@ public class MyCoffeeMachine extends JFrame {
         } else if (getAmountOfDebris() > 45) {
             textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 5) {
-            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + "g.\n");
+            textArea.append("Not enough coffee! Please add at least " + (5 - getAmountOfCoffee()) + " g.\n");
         } else if (getAmountOfWater() < 100) {
-            textArea.append("Not enough water! 100mL are needed for one large coffee. Please add at least " + (100 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 100 ml are needed for one large coffee. Please add at least " + (100 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfCoffee -= 5;
             amountOfWater -= 100;
@@ -369,7 +369,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for making two large coffees.
+     * Method for making two large coffees. 10 g of coffee and 200 ml of water is needed.
      */
     public void makeTwoLargeCoffees() {
         if (isDescalingNeeded()) {
@@ -379,9 +379,9 @@ public class MyCoffeeMachine extends JFrame {
         } else if (getAmountOfDebris() > 40) {
             textArea.append("Please empty the debris tank!\n");
         } else if (getAmountOfCoffee() < 10) {
-            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + "g.\n");
+            textArea.append("Not enough coffee! Please add at least " + (10 - getAmountOfCoffee()) + " g.\n");
         } else if (getAmountOfWater() < 200) {
-            textArea.append("Not enough water! 200mL are needed for two large coffees. Please add at least " + (200 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 200 ml are needed for two large coffees. Please add at least " + (200 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfCoffee -= 10;
             amountOfWater -= 200;
@@ -393,14 +393,14 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for cleaning the coffee machine pipes.
+     * Method for cleaning the coffee machine pipes. 50 ml of water is needed for cleaning.
      * Cleaning has to be done after each coffee making process.
      */
     public void clean() {
         if (!isCleaningNeeded()) {
             textArea.append("Cleaning not needed!\n");
         } else if (getAmountOfWater() < 50) {
-            textArea.append("Not enough water! 50mL are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + "mL.\n");
+            textArea.append("Not enough water! 50 ml are needed for cleaning. Please add at least " + (50 - getAmountOfWater()) + " ml.\n");
         } else {
             amountOfWater -= 50;
             isCleaningNeeded = false;
@@ -409,14 +409,14 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method for descaling the coffee machine.
+     * Method for descaling the coffee machine. 100 ml of descaler is needed for descaling.
      * Descaling has to be done after 10 or more coffees are prepared.
      */
     public void descale() {
         if (!isDescalingNeeded()) {
             textArea.append("Descaling not needed!\n");
-        } else if (getAmountOfDescaler() < 200) {
-            textArea.append("Not enough descaler! 10mL are needed for cleaning. Please add at least " + (200 - getAmountOfDescaler()) + "mL.\n");
+        } else if (getAmountOfDescaler() < 100) {
+            textArea.append("Not enough descaler! 100 ml are needed for descaling. Please add at least " + (100 - getAmountOfDescaler()) + " ml.\n");
         } else {
             amountOfDescaler -= 100;
             coffeesMade = 0;
