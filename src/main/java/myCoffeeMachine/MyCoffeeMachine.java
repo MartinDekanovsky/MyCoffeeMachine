@@ -45,7 +45,7 @@ public class MyCoffeeMachine extends JFrame {
 
         setTitle("My coffee machine :)");
         setLayout(new BorderLayout());
-        setSize(550, 400);
+        setSize(675, 400);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // window will be displayed in the middle of screen
         setVisible(true);
@@ -93,22 +93,27 @@ public class MyCoffeeMachine extends JFrame {
         jPanel2.setLayout(new FlowLayout());
 
         JButton steamMilkButton = new JButton("Steam milk");
+        steamMilkButton.setBackground(Color.GREEN);
         ActionListener steamMilkButtonListener = event -> steamMilk();
         steamMilkButton.addActionListener(steamMilkButtonListener);
 
         JButton makeOneSmallCoffeeButton = new JButton("1 small coffee");
+        makeOneSmallCoffeeButton.setBackground(Color.GREEN);
         ActionListener makeOneSmallCoffeeButtonListener = event -> makeOneSmallCoffee();
         makeOneSmallCoffeeButton.addActionListener(makeOneSmallCoffeeButtonListener);
 
         JButton makeTwoSmallCoffeesButton = new JButton("2 small coffees");
+        makeTwoSmallCoffeesButton.setBackground(Color.GREEN);
         ActionListener makeTwoSmallCoffeesButtonListener = event -> makeTwoSmallCoffees();
         makeTwoSmallCoffeesButton.addActionListener(makeTwoSmallCoffeesButtonListener);
 
         JButton makeOneLargeCoffeeButton = new JButton("1 large coffee");
+        makeOneLargeCoffeeButton.setBackground(Color.GREEN);
         ActionListener makeOneLargeCoffeeButtonListener = event -> makeOneLargeCoffee();
         makeOneLargeCoffeeButton.addActionListener(makeOneLargeCoffeeButtonListener);
 
         JButton makeTwoLargeCoffeesButton = new JButton("2 large coffees");
+        makeTwoLargeCoffeesButton.setBackground(Color.GREEN);
         ActionListener makeTwoLargeCoffeesButtonListener = event -> makeTwoLargeCoffees();
         makeTwoLargeCoffeesButton.addActionListener(makeTwoLargeCoffeesButtonListener);
 
@@ -123,14 +128,17 @@ public class MyCoffeeMachine extends JFrame {
         jPanel3.setLayout(new FlowLayout());
 
         JButton cleanButton = new JButton("Clean");
+        cleanButton.setBackground(Color.LIGHT_GRAY);
         ActionListener cleanButtonListener = event -> clean();
         cleanButton.addActionListener(cleanButtonListener);
 
         JButton descaleButton = new JButton("Descale");
+        descaleButton.setBackground(Color.LIGHT_GRAY);
         ActionListener descaleButtonListener = event -> descale();
         descaleButton.addActionListener(descaleButtonListener);
 
         JButton removeDebrisButton = new JButton("Remove debris");
+        removeDebrisButton.setBackground(Color.LIGHT_GRAY);
         ActionListener removeDebrisButtonListener = event -> removeDebris();
         removeDebrisButton.addActionListener(removeDebrisButtonListener);
 
@@ -143,10 +151,12 @@ public class MyCoffeeMachine extends JFrame {
         jPanel4.setLayout(new FlowLayout());
 
         JButton showCoffeeMachineStateButton = new JButton("Show coffee machine state");
+        showCoffeeMachineStateButton.setBackground(new Color(150, 121, 105));
         ActionListener showCoffeeMachineStateButtonListener = event -> showCoffeeMachineState();
         showCoffeeMachineStateButton.addActionListener(showCoffeeMachineStateButtonListener);
 
         JButton switchOffButton = new JButton("Switch Off");
+        switchOffButton.setBackground(Color.RED);
         ActionListener switchOffButtonListener = event -> {
             try {
                 switchOff();
@@ -427,7 +437,7 @@ public class MyCoffeeMachine extends JFrame {
      */
     public void showCoffeeMachineState() {
         textArea.append("Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
-                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + "\nCleaning needed: " + isCleaningNeeded()
+                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + ", Cleaning needed: " + isCleaningNeeded()
                 + ", Descaling needed: " + isDescalingNeeded() + "\n");
     }
 
