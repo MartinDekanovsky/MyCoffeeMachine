@@ -45,7 +45,7 @@ public class MyCoffeeMachine extends JFrame {
 
         setTitle("My coffee machine :)");
         setLayout(new BorderLayout());
-        setSize(675, 400);
+        setSize(610, 400);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // window will be displayed in the middle of screen
         setVisible(true);
@@ -240,14 +240,20 @@ public class MyCoffeeMachine extends JFrame {
      * @param waterRefillAmount amount of water to be added.
      */
     public void setAmountOfWater(JTextField waterRefillAmount) {
-        int amount = Integer.parseInt(waterRefillAmount.getText());
-        if (amount > 2000 - getAmountOfWater()) {
-            textArea.append("Water tank capacity is 2000 ml. Only " + (2000 - getAmountOfWater()) + " ml more can be added.\n");
-        } else {
-            amountOfWater += amount;
-            textArea.append(amount + " ml of water added.\n");
-            addWaterButtonTextField.setText(""); // resets the text field
+        try {
+            int amount = Integer.parseInt(waterRefillAmount.getText());
+            if (amount < 1) {
+                textArea.append("Please enter positive integer!\n");
+            } else if (amount > 2000 - getAmountOfWater()) {
+                textArea.append("Water tank capacity is 2000 ml. Only " + (2000 - getAmountOfWater()) + " ml more can be added.\n");
+            } else {
+                amountOfWater += amount;
+                textArea.append(amount + " ml of water added.\n");
+            }
+        } catch (NumberFormatException e) {
+            textArea.append("Please enter positive integer!\n");
         }
+        addWaterButtonTextField.setText(""); // resets the text field
     }
 
     /**
@@ -256,14 +262,20 @@ public class MyCoffeeMachine extends JFrame {
      * @param coffeeRefillAmount amount of coffee to be added.
      */
     public void setAmountOfCoffee(JTextField coffeeRefillAmount) {
-        int amount = Integer.parseInt(coffeeRefillAmount.getText());
-        if (amount > 50 - getAmountOfCoffee()) {
-            textArea.append("Coffee tank capacity is 50 g. Only " + (50 - getAmountOfCoffee()) + " g more can be added.\n");
-        } else {
-            amountOfCoffee += amount;
-            textArea.append(amount + " g of coffee added.\n");
-            addCoffeeButtonTextField.setText("");
+        try {
+            int amount = Integer.parseInt(coffeeRefillAmount.getText());
+            if (amount < 1) {
+                textArea.append("Please enter positive integer!\n");
+            } else if (amount > 50 - getAmountOfCoffee()) {
+                textArea.append("Coffee tank capacity is 50 g. Only " + (50 - getAmountOfCoffee()) + " g more can be added.\n");
+            } else {
+                amountOfCoffee += amount;
+                textArea.append(amount + " g of coffee added.\n");
+            }
+        } catch (NumberFormatException e) {
+            textArea.append("Please enter positive integer!\n");
         }
+        addCoffeeButtonTextField.setText("");
     }
 
     /**
@@ -272,14 +284,20 @@ public class MyCoffeeMachine extends JFrame {
      * @param descalerRefillAmount amount of descaler to be added.
      */
     public void setAmountOfDescaler(JTextField descalerRefillAmount) {
-        int amount = Integer.parseInt(descalerRefillAmount.getText());
-        if (amount > 200 - getAmountOfDescaler()) {
-            textArea.append("Descaler tank capacity is 200 ml. Only " + (200 - getAmountOfDescaler()) + " ml more can be added.\n");
-        } else {
-            amountOfDescaler += amount;
-            textArea.append(amount + " ml of descaler added.\n");
-            addDescalerButtonTextField.setText("");
+        try {
+            int amount = Integer.parseInt(descalerRefillAmount.getText());
+            if (amount < 1) {
+                textArea.append("Please enter positive integer!\n");
+            } else if (amount > 200 - getAmountOfDescaler()) {
+                textArea.append("Descaler tank capacity is 200 ml. Only " + (200 - getAmountOfDescaler()) + " ml more can be added.\n");
+            } else {
+                amountOfDescaler += amount;
+                textArea.append(amount + " ml of descaler added.\n");
+            }
+        } catch (NumberFormatException e) {
+            textArea.append("Please enter positive integer!\n");
         }
+        addDescalerButtonTextField.setText("");
     }
 
     /**
@@ -428,8 +446,12 @@ public class MyCoffeeMachine extends JFrame {
      * Method for removing all debris from coffee machine debris tank.
      */
     public void removeDebris() {
-        amountOfDebris = 0;
-        textArea.append("Debris has been removed.\n");
+        if (getAmountOfDebris() == 0) {
+            textArea.append("Debris tank is already empty!\n");
+        } else {
+            amountOfDebris = 0;
+            textArea.append("Debris has been removed.\n");
+        }
     }
 
     /**
@@ -437,7 +459,7 @@ public class MyCoffeeMachine extends JFrame {
      */
     public void showCoffeeMachineState() {
         textArea.append("Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
-                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + ", Cleaning needed: " + isCleaningNeeded()
+                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + "\nCleaning needed: " + isCleaningNeeded()
                 + ", Descaling needed: " + isDescalingNeeded() + "\n");
     }
 
