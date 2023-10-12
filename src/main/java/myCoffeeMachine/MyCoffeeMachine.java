@@ -42,8 +42,8 @@ public class MyCoffeeMachine extends JFrame {
 
         setTitle("My coffee machine :)");
         setLayout(new BorderLayout());
-        setSize(650, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(550, 400);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // window will be displayed in the middle of screen
         setVisible(true);
 
@@ -186,7 +186,7 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
-     * Method returns current amount of debris present in coffee machine debris tank.
+     * Method returns current amount of debris present in coffee machine debris tank. Maximum capacity is 50g.
      *
      * @return amount of debris.
      */
@@ -219,15 +219,6 @@ public class MyCoffeeMachine extends JFrame {
      */
     public boolean isDescalingNeeded() {
         return getCoffeesMade() >= 10;
-    }
-
-    /**
-     * Method shows the current state of coffee machine.
-     */
-    public void showCoffeeMachineState() {
-        textArea.append("Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
-                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + ", Cleaning needed: " + isCleaningNeeded()
-                + ", Descaling needed: " + isDescalingNeeded() + "\n");
     }
 
     /**
@@ -426,6 +417,15 @@ public class MyCoffeeMachine extends JFrame {
     }
 
     /**
+     * Method shows the current state of coffee machine.
+     */
+    public void showCoffeeMachineState() {
+        textArea.append("Water: " + getAmountOfWater() + ", Coffee: " + getAmountOfCoffee() + ", Descaler: " + getAmountOfDescaler()
+                + ", Debris: " + getAmountOfDebris() + ", Coffees made: " + getCoffeesMade() + "\nCleaning needed: " + isCleaningNeeded()
+                + ", Descaling needed: " + isDescalingNeeded() + "\n");
+    }
+
+    /**
      * Method simulates switching-off the coffee machine.
      * Its state is remembered for later use by writing it to the txt file.
      *
@@ -436,5 +436,6 @@ public class MyCoffeeMachine extends JFrame {
         writer.println(getAmountOfWater() + "\n" + getAmountOfCoffee() + "\n" + getAmountOfDescaler() + "\n"
                 + getAmountOfDebris() + "\n" + getCoffeesMade() + "\n" + isCleaningNeeded());
         writer.close();
+        System.exit(0);
     }
 }
