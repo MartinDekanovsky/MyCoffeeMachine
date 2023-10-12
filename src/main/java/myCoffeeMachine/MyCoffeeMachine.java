@@ -23,6 +23,9 @@ public class MyCoffeeMachine extends JFrame {
     private int coffeesMade;
     private boolean isCleaningNeeded;
     private JTextArea textArea;
+    private JTextField addWaterButtonTextField;
+    private JTextField addCoffeeButtonTextField;
+    private JTextField addDescalerButtonTextField;
 
     /**
      * Constructor simulates switching-on an existing coffee machine by reading its state from txt file.
@@ -64,17 +67,17 @@ public class MyCoffeeMachine extends JFrame {
         jPanel1.setLayout(new FlowLayout()); // buttons will be centered
 
         JButton addWaterButton = new JButton("Add water:");
-        JTextField addWaterButtonTextField = new JTextField(4);
+        addWaterButtonTextField = new JTextField(4);
         ActionListener addWaterButtonListener = event -> setAmountOfWater(addWaterButtonTextField);
         addWaterButton.addActionListener(addWaterButtonListener);
 
         JButton addCoffeeButton = new JButton("Add coffee:");
-        JTextField addCoffeeButtonTextField = new JTextField(4);
+        addCoffeeButtonTextField = new JTextField(4);
         ActionListener addCoffeeButtonListener = event -> setAmountOfCoffee(addCoffeeButtonTextField);
         addCoffeeButton.addActionListener(addCoffeeButtonListener);
 
         JButton addDescalerButton = new JButton("Add descaler:");
-        JTextField addDescalerButtonTextField = new JTextField(4);
+        addDescalerButtonTextField = new JTextField(4);
         ActionListener addDescalerButtonListener = event -> setAmountOfDescaler(addDescalerButtonTextField);
         addDescalerButton.addActionListener(addDescalerButtonListener);
 
@@ -233,6 +236,7 @@ public class MyCoffeeMachine extends JFrame {
         } else {
             amountOfWater += amount;
             textArea.append(amount + "mL of water added.\n");
+            addWaterButtonTextField.setText(""); // resets the text field
         }
     }
 
@@ -248,6 +252,7 @@ public class MyCoffeeMachine extends JFrame {
         } else {
             amountOfCoffee += amount;
             textArea.append(amount + "g of coffee added.\n");
+            addCoffeeButtonTextField.setText("");
         }
     }
 
@@ -263,6 +268,7 @@ public class MyCoffeeMachine extends JFrame {
         } else {
             amountOfDescaler += amount;
             textArea.append(amount + "mL of descaler added.\n");
+            addDescalerButtonTextField.setText("");
         }
     }
 
