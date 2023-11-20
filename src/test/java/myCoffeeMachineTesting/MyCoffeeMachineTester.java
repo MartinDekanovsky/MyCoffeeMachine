@@ -1,11 +1,12 @@
 package myCoffeeMachineTesting;
 
 import myCoffeeMachine.MyCoffeeMachine;
+
 import javax.swing.*;
 import java.io.IOException;
 
 /**
- * Class for testing of implementation methods of class MyCoffeeMachine.
+ * Class for testing of implementation methods of class MyCoffeeMachine and related classes.
  *
  * @author Martin Dekanovský
  */
@@ -15,7 +16,7 @@ public class MyCoffeeMachineTester {
 
         SwingUtilities.invokeLater(() -> {
             try {
-                new MyCoffeeMachine();
+                new MyCoffeeMachine().createGUI();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
